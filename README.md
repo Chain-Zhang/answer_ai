@@ -1,6 +1,7 @@
 # answer_ai
 
 [go实现西瓜视频花椒直播等平台智能答题](http://www.chairis.cn/blog/article/71)
+
 下载代码：
 ```
 git clone https://github.com/Chain-Zhang/answer_ai.git
@@ -9,6 +10,7 @@ git clone https://github.com/Chain-Zhang/answer_ai.git
 # 介绍
 
 最近出了很多答题平分奖金的直播，只要能够连续答对12道题，就能与所有答对的人一起平分奖池里的奖金，20万到500万不等。当这个时候，我才体会到“书到用时方恨少”这句至理名言。这时突然想到，咦！我们不是有无所不知的互联网吗，题目拿到百度中一搜不就完了。可是一看答题时间只有10秒，尽管我有着单身20多年的手速，也愣是做不到呀。再一想，我特么是程序猿呀，这种事还需要我亲自动手？
+
 于是一通百度，找到了个大神的java智能答题的源码，这里把大神的源码地址贴出来供大家参考：https://github.com/lingfengsan/MillionHero
 
 然而，我学了这么一大段时间的go语言，能不能用go来实现一下呢。
@@ -51,17 +53,23 @@ git clone https://github.com/Chain-Zhang/answer_ai.git
 
 完成之后在cmd窗口输入：`go version`
 ![go version](http://opgmvuzyu.bkt.clouddn.com/1516068224285.png)
+
 如图所示，表示我们已经安装配置成功。
 
 然后就是IDE了，这个就更简单了。直接用记事本都可以，当然也可以用些轻量的编辑器，vscode, vim都是可以的。也可以用goland等。这些看自己的爱好。反正我是用的vscode。
 
 ### adb安装
 adb的全称为Android Debug Bridge 调试桥，是连接Android手机与PC端的桥梁，通过adb可以管理、操作模拟器和设备，如安装软件、查看设备软硬件参数、系统升级、运行shell命令等。
+
 这里先给一个下载地址：[adb下载地址](http://download.csdn.net/download/zzceng/10204041) （有积分的大佬们从我这里下吧，我一分都没有了，想赚点分）
+
 下载完成后安装好即可。然后把安装好的路径配置到环境变量中去，方便我们在cmd窗口下使用adb命令。配置好后，可以在cmd窗口下执行`adb devices` 命令：
+
 ![adb devices](http://opgmvuzyu.bkt.clouddn.com/1516068810427.png)
+
 从图中可以看到，这里我们启动了adb，并且给了个设备列表，因为我没有连接安卓设备，所以没有东西显示。
 这个时候，我们把安卓手机用数据线连接到电脑，并在手机上打开USB调试选项。`设置->开发者选项->USB调试`，不同的品牌的手机可能有差别，百度一下你就知道。
+
 有时候可能做到这些还是列不出你的设备。这时候再需要做以下事情：
 1. 在计算机管理中设备管理中找到你的设备，然后右击->属性->详细信息->在详细信息页面的属性中找到硬件ID，再复制的硬件ID，我的手机是魅族，我的硬件ID是：2A45
 2. 在`C:\Users\你的用户名\.android`目录下找到adb_usb.ini文件，如果没有自己新建。然后把你刚刚复制的硬件ID写进去，由于这个ID是16进制的，所以前面加上0x，
