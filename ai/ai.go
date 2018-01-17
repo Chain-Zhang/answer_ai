@@ -32,11 +32,14 @@ func Start(){
 			return
 		}
 		pairs := make(PairList, len(a))
-		for k, v := range a{
-			key := q + " " + v
-			count := Seach(key)
-			pairs[k] = Pair{key:fmt.Sprintf("%d=>%s", k + 1, v), value:count}
+		channel := make(chan Pair, len(a))
+		for _, v := range a{
+			go Seach1(q, v, channel)
 		}
+		for i := 0; i < len(a); i++{
+            pairs[i] = <-channel
+		}
+		
 		sort.Sort(pairs)
 		fmt.Println("搜索结果：")
 		for _, v := range pairs{

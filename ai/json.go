@@ -2,7 +2,6 @@ package ai
 
 import(
 	"encoding/json"
-	"fmt"
 )
 
 type PicWord struct{
@@ -26,7 +25,6 @@ func GetQA(jsonStr string) (question string, answers []string, err error){
 	if err != nil{
 		return
 	}
-	fmt.Println(picWord.WordsResults)
 	qs := picWord.WordsResults[0:picWord.WordResultNum - 3]
 	for _, v := range qs{
 		question += v.Words
