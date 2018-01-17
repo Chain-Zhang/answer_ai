@@ -46,7 +46,7 @@ func Seach(key string) (count int64){
 	return count
 }
 
-func Seach1(q string, a string, c chan Pair) (count int64){
+func Seach1(index int, q string, a string, c chan Pair) (count int64){
 	key := q + " " + a
 	fmt.Println("百度搜索关键字：", key)
 	count = 0
@@ -76,6 +76,6 @@ func Seach1(q string, a string, c chan Pair) (count int64){
 			}
 		}
 	}
-	c <- Pair{key:fmt.Sprintf("%s",a), value:count}
+	c <- Pair{key:fmt.Sprintf("%d=>%s",index,a), value:count}
 	return count
 }

@@ -33,8 +33,8 @@ func Start(){
 		}
 		pairs := make(PairList, len(a))
 		channel := make(chan Pair, len(a))
-		for _, v := range a{
-			go Seach1(q, v, channel)
+		for k, v := range a{
+			go Seach1(k, q, v, channel)
 		}
 		for i := 0; i < len(a); i++{
             pairs[i] = <-channel
