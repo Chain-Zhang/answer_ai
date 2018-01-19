@@ -37,8 +37,9 @@ func Start(){
 		chanbaidu := make(chan Pair, len(a))
 		chansougou := make(chan Pair, len(a))
 		chan360 := make(chan Pair, len(a))
+		fmt.Println("题目：", q)
 		for k, v := range a{
-			fmt.Println("搜索关键字：", q + " " + v)
+			fmt.Printf("%d：%s\n", k+1, v)
 			go SeachBaidu(k, q, v, chanbaidu)
 			go SeachSougou(k, q, v, chansougou)
 			go Seach360(k, q, v, chan360)
@@ -56,15 +57,15 @@ func Start(){
 		sort.Sort(pairs_sougou)
 		sort.Sort(pairs_baidu)
 		sort.Sort(pairs_360)
-		fmt.Println("\n\n百度搜索结果：")
+		fmt.Println("\n百度搜索结果：")
 		for _, v := range pairs_baidu{
             fmt.Printf("%s: %d \n", v.key, v.value)
 		}
-		fmt.Println("\n\n搜狗搜索结果：")
+		fmt.Println("\n搜狗搜索结果：")
 		for _, v := range pairs_sougou{
             fmt.Printf("%s: %d \n", v.key, v.value)
 		}
-		fmt.Println("\n\n360搜索结果：")
+		fmt.Println("\n360搜索结果：")
 		for _, v := range pairs_360{
             fmt.Printf("%s: %d \n", v.key, v.value)
 		}

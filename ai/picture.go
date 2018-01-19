@@ -36,9 +36,13 @@ func getPic() bool{
   返回参数：电脑端图片路径；是否保存成功
 */
 func savePic()(string, bool){
-	//picPath := conf.PicDirectory + "1516029402.png"
-	timestamp := time.Now().Unix()
-	picPath := conf.PicDirectory + strconv.FormatInt(timestamp, 10) + ".png"
+	var picPath string
+	if conf.IsTest{
+        picPath = conf.TestPicPath
+	}else{
+	    timestamp := time.Now().Unix()
+	    picPath = conf.PicDirectory + strconv.FormatInt(timestamp, 10) + ".png"
+	}
     params := []string{"/c", "adb", "pull", "/sdcard/screenshot.png", picPath}
 	b := ExeCommand(cmdName, params)
 	if b{
