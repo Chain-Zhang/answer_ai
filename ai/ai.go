@@ -31,18 +31,41 @@ func Start(){
 			fmt.Println("获取问题和答案失败：", err.Error())
 			return
 		}
-		pairs := make(PairList, len(a))
-		channel := make(chan Pair, len(a))
+		pairs_baidu := make(PairList, len(a))
+		pairs_sougou := make(PairList, len(a))
+		pairs_360 := make(PairList, len(a))
+		chanbaidu := make(chan Pair, len(a))
+		chansougou := make(chan Pair, len(a))
+		chan360 := make(chan Pair, len(a))
 		for k, v := range a{
-			go Seach1(k, q, v, channel)
+			fmt.Println("搜索关键字：", q + " " + v)
+			go SeachBaidu(k, q, v, chanbaidu)
+			go SeachSougou(k, q, v, chansougou)
+			go Seach360(k, q, v, chan360)
 		}
 		for i := 0; i < len(a); i++{
-            pairs[i] = <-channel
+            pairs_baidu[i] = <-chanbaidu
+		}
+		for i := 0; i < len(a); i++{
+            pairs_sougou[i] = <-chansougou
+		}
+		for i := 0; i < len(a); i++{
+            pairs_360[i] = <-chan360
 		}
 		
-		sort.Sort(pairs)
-		fmt.Println("搜索结果：")
-		for _, v := range pairs{
+		sort.Sort(pairs_sougou)
+		sort.Sort(pairs_baidu)
+		sort.Sort(pairs_360)
+		fmt.Println("\n\n百度搜索结果：")
+		for _, v := range pairs_baidu{
+            fmt.Printf("%s: %d \n", v.key, v.value)
+		}
+		fmt.Println("\n\n搜狗搜索结果：")
+		for _, v := range pairs_sougou{
+            fmt.Printf("%s: %d \n", v.key, v.value)
+		}
+		fmt.Println("\n\n360搜索结果：")
+		for _, v := range pairs_360{
             fmt.Printf("%s: %d \n", v.key, v.value)
 		}
 	}else{
